@@ -14,23 +14,28 @@ public class Case24 {
             for(int i = 1; i<=n; i++){
                 arr[i] = scanner.nextInt();
             }
-            long[] dp = new long[t+1];
-            dp[c] = 1;
-            for(int i = c+1; i<=n; i++){
-                for(int j = arr[i]; j<=t; j++){
-                    dp[j] = dp[j-arr[i]]+(calcaute(i-1)/(calcaute(c-1)*calcaute(i-c)));
+
+            long tmp = 0;
+            for(int i = 0; i<c; i++){
+                tmp += arr[i];
+            }
+
+            int count = 0;
+            if(tmp <= t){
+                count++;
+            }
+
+            for(int  i = c; i<n; i++){
+                tmp -= arr[i-c];
+                tmp += arr[i];
+                if(tmp <= t){
+                    count++;
                 }
             }
-            System.out.println(dp[t]);
+
+            System.out.println(count);
         }
     }
-    public static long calcaute(int n){
-        long result = 1;
-        for(int i = 1; i <= n; i++){
-            result *= i;
-        }
-        System.out.println("result:"+result);
-        return result;
-    }
+
 
 }
